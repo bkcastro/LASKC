@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LA:KC</title>
+</head>
+<body>
+    <h1 style="padding-left: 15px;">LA:KC</h1>
+</body>
+
+<script>
+
+    const images = [
+        '', 
+       'LA',  
+        'look an angle',
+        '',
+        'in another dimension i am this egg', 
+        '', 
+        'the clouds hide me from god', 
+        'the dark loves me more', 
+        'shows me images i love to see', 
+        'plays me sounds i love to hear',
+        'touches me where i cant reach', 
+        'helps me when i want it', 
+        'gives me strength for another night', 
+        'i lay in my coffine ready for the next day', 
+]
+
+    for (let i = 0; i < 18; i++) {
+        // Create container for img and overlay
+        const container = document.createElement('div')
+        container.style = 'position: relative; display: inline-block; margin: 10px;'
+
+        // Create the image element
+        const img = document.createElement('img')
+        img.src = `./public/images/${i + 1}.jpg`
+        img.style.padding = '2px'
+        img.width = img.width > img.height ? 800 : 400
+
+        // Create overlay div
+        const background = document.createElement('div')
+        background.style = `
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 24px;
+        `
+        background.textContent = (i < images.length) ? images[i] : 'NYXK'
+   
+
+        // Event listeners for hover effect
+        background.addEventListener('mouseenter', () => {
+            background.style.opacity = 0
+            console.log('Mouse is over the overlay')
+        })
+
+        background.addEventListener('mouseleave', () => {
+            background.style.opacity = 1
+            console.log('Mouse has left the overlay')
+        })
+
+
+        // Append image and overlay to container
+        container.appendChild(img)
+        container.appendChild(background)
+
+        // Append container to document
+        document.body.appendChild(container)
+    }
+
+</script>
+</html>
+
