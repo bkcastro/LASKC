@@ -4,31 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LA:KC</title>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        @font-face {
+            font-family: "CustomFont1";
+            src: url("./public/fonts/aAnotherTag.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "CustomFont4";
+            src: url("./public/fonts/Mostwasted.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "CustomFont5";
+            src: url("./public/fonts/throwupz.ttf") format("truetype");
+        }
+        @font-face {
+            font-family: "CustomFont6";
+            src: url("./public/fonts/GraffitiFont.ttf") format("truetype");
+        }
+        /* Add more font-face declarations as needed */
+
+        .container {
+            position: relative; 
+            display: inline-block;
+            margin: 10px auto; /* Updated to center containers */
+        }
+    </style>
 </head>
 <body>
-    <h1 style="padding-left: 15px;">LA:KC</h1>
+    <h1 style="font-size: 50px; font-family: CustomFont5; opacity: 0.6; color: #ff0000">lilgremlin<br>lilgremlin<br>lilgremlin</h1>
+    <div id="contain">
+
+    </div>
+    <h1 style="font-size: 50px; font-family: CustomFont5; opacity: 0.6; color: #ff0000">lilgremlin<br>lilgremlin<br>lilgremlin</h1>
 </body>
 
 <script>
 
     const images = [
-        '', 
-       'LA',  
-        'look an angle',
-        '',
-        'in another dimension i am this egg', 
-        '', 
-        'the clouds hide me from god', 
-        'the dark loves me more', 
-        'shows me images i love to see', 
-        'plays me sounds i love to hear',
-        'touches me where i cant reach', 
-        'helps me when i want it', 
-        'gives me strength for another night', 
-        'i lay in my coffine ready for the next day', 
+        ['SKC\nFTP\nLAKX', 'CustomFont4'], 
+        ['best at night\n during the day\nmy skin cracks', 'CustomFont4'],  
+        ['best at night\n during the day\nmy eyes burn', 'CustomFont4'],
+        ['i see the future\n becuase i cant\n forget the past', 'CustomFont4'],
+        ['you feel like\n a drug to me', 'CustomFont1'], 
+        ['you are so beautifle\nyou are so ugly', 'CustomFont1'], 
+        ['the clouds hide me from god', 'CustomFont6', '20px'], 
+        ['the dark loves me more', 'CustomFont6', '20px'], 
+        ['shows me images\n i love to see', 'CustomFont6', '20px'], 
+        ['plays me sounds\n i love to hear', 'CustomFont6', '20px'],
+        ['touches me where\n i cant reach', 'CustomFont6', '20px'], 
+        ['helps me when i need', 'CustomFont6', '20px'], 
+        ['gives me strength\n for another day', 'CustomFont6', '20px'], 
+        ['ready for the night\nin my coffine i lay', 'CustomFont6', '20px'], 
+        ['what is me or i\ndo words matter?\ni fell like a slave\nleave my brain', 'CustomFont1'],
+        ['the razor doesnt cut me anymore\n grab the lazer', 'CustomFont1'],
+        ['XXX\nPaso\nXXX', 'CustomFont5'],
+        ['i\nsee\nyou', 'CustomFont5'],
+        ['shadow\nshadow\nshadow', 'CustomFont5', '50px'],
 ]
 
-    for (let i = 0; i < 18; i++) {
+const contain = document.getElementById('contain')
+    for (let i = 0; i < images.length; i++) {
         // Create container for img and overlay
         const container = document.createElement('div')
         container.style = 'position: relative; display: inline-block; margin: 10px;'
@@ -37,44 +81,53 @@
         const img = document.createElement('img')
         img.src = `./public/images/${i + 1}.jpg`
         img.style.padding = '2px'
-        img.width = img.width > img.height ? 800 : 400
 
-        // Create overlay div
-        const background = document.createElement('div')
-        background.style = `
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.5); 
-            color: white; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            font-size: 24px;
-        `
-        background.textContent = (i < images.length) ? images[i] : 'NYXK'
-   
+        if (img.width == img.height) img.width = 600
+        else if (img.width > img.height) img.width = 800
+        else img.width = 450
 
-        // Event listeners for hover effect
-        background.addEventListener('mouseenter', () => {
-            background.style.opacity = 0
-            console.log('Mouse is over the overlay')
-        })
+        if (images[i].length > 0) {
 
-        background.addEventListener('mouseleave', () => {
-            background.style.opacity = 1
-            console.log('Mouse has left the overlay')
-        })
+            // Create overlay div
+            const background = document.createElement('div')
+            background.style = `
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                background-color: rgba(0, 0, 0, 0.5); 
+                color: rgba(255, 255, 255, 0.8); 
+                display: flex; 
+                justify-content: center; 
+                align-items: flex-start; 
+                text-align: center;
+                font-size: ${(images[i].length > 2) ? images[i][2] : '50px' };
+                font-family: ${(images[i].length > 1) ? images[i][1] : '' };
+            `
 
 
-        // Append image and overlay to container
+            const text = document.createElement('p'); 
+            text.innerHTML = images[i][0].replace(/\n/g, '<br>') // Replace new lines with <br>
+            text.style = 'margin: 20px 5px 0px 5px'
+            background.appendChild(text)
+    
+            // Event listeners for hover effect
+            background.addEventListener('mouseenter', () => {
+                background.style.opacity = 0
+                console.log('Mouse is over the overlay')
+            })
+
+            background.addEventListener('mouseleave', () => {
+                background.style.opacity = 1
+                console.log('Mouse has left the overlay')
+            })
+            container.appendChild(background)
+
+        }
+
         container.appendChild(img)
-        container.appendChild(background)
-
-        // Append container to document
-        document.body.appendChild(container)
+        contain.appendChild(container)
     }
 
 </script>
