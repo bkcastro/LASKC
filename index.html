@@ -61,6 +61,20 @@
             opacity: 0.8;
             transform: scale(1.1); /* Slightly enlarge on hover */
         }
+
+        div {
+            font-size: 50px;
+        }
+
+        @media only screen and (max-width: 480px) {
+            div {
+                font-size: 30px; /* Example: Smaller font size for very small devices */
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,27 +95,27 @@
 <script>
 
     const images = [
-        ['SKC\nFTP\nLAKX', 'CustomFont4'], 
+        ['I dont feel\nlike a human', 'CustomFont4'], 
         ['during the day\nmy eyes burn', 'CustomFont4'],  
         ['during the night\nmy skin glows', 'CustomFont4'],
         ['i see the future', 'CustomFont1'],
         ['i forget the past', 'CustomFont1'], 
-        ['you are so beautiful\nyou are so ugly', 'CustomFont4'], 
-        ['the clouds hide me from god', 'CustomFont6', '20px'], 
-        ['the dark loves me more', 'CustomFont6', '20px'], 
-        ['shows me images\n i love to see', 'CustomFont6', '20px'], 
-        ['plays me sounds\n i love to hear', 'CustomFont6', '20px'],
-        ['touches me where\n i cant reach', 'CustomFont6', '20px'], 
-        ['helps me when i need', 'CustomFont6', '20px'], 
-        ['gives me strength\n for another day', 'CustomFont6', '20px'], 
-        ['ready for the night\nin my coffine i lay', 'CustomFont6', '20px'], 
+        ['the clouds hide me from god', 'CustomFont4', '20px'], 
+        ['the dark loves me more', 'CustomFont4', '20px'], 
+        ['shows me images\n i love to see', 'CustomFont4', '20px'], 
+        ['plays me sounds\n i love to hear', 'CustomFont4', '20px'],
+        ['touches me where\n i cant reach', 'CustomFont4', '20px'], 
+        ['helps me when i need', 'CustomFont4', '20px'], 
+        ['gives me strength\n for another day', 'CustomFont4', '20px'], 
+        ['ready for the night\nin my coffine i lay', 'CustomFont4', '20px'], 
         ['words make me cry\ni am always in pain', 'CustomFont1'],
         ['slowly going insane\nplease leave my brain', 'CustomFont1'],
         ['i grave peace ', 'CustomFont1'],
         ['nights like these', 'CustomFont1', '50px'],
-]
+    ]
 
-const contain = document.getElementById('contain')
+    const contain = document.getElementById('contain')
+
     for (let i = 0; i < images.length; i++) {
         // Create container for img and overlay
         const container = document.createElement('div')
@@ -112,9 +126,11 @@ const contain = document.getElementById('contain')
         img.src = `./public/images/${i + 1}.jpg`
         img.style.padding = '2px'
 
-        if (img.width == img.height) img.width = 600
-        else if (img.width > img.height) img.width = 800
-        else img.width = 450
+        const isMobile = (window.innerWidth < 480) ? true : false
+
+        if (img.width == img.height) img.width = (isMobile) ? 300 : 600 
+        else if (img.width > img.height) img.width = (isMobile) ? 300 : 800
+        else img.width = (isMobile) ? 300 : 450
 
         if (images[i].length > 0) {
 
@@ -126,31 +142,23 @@ const contain = document.getElementById('contain')
                 left: 0; 
                 width: 100%; 
                 height: 100%; 
+                cursor: crosshair; 
                 background-color: rgba(0, 0, 0, 0.5); 
                 color: rgba(255, 255, 255, 0.8); 
                 display: flex; 
                 justify-content: center; 
                 align-items: flex-start; 
                 text-align: center;
-                font-size: ${(images[i].length > 2) ? images[i][2] : '50px' };
                 font-family: ${(images[i].length > 1) ? images[i][1] : '' };
             `
 
-
             const text = document.createElement('p'); 
             text.innerHTML = images[i][0].replace(/\n/g, '<br>') // Replace new lines with <br>
-            text.style = 'margin: 20px 5px 0px 5px'
+            text.style = 'margin: 20px 20px'
             background.appendChild(text)
-    
-            // Event listeners for hover effect
-            background.addEventListener('mouseenter', () => {
-                background.style.opacity = 0
-                console.log('Mouse is over the overlay')
-            })
 
-            background.addEventListener('mouseleave', () => {
-                background.style.opacity = 1
-                console.log('Mouse has left the overlay')
+            background.addEventListener('click', () => {
+                background.style.opacity = (background.style.opacity == 1) ? 0 : 1
             })
             container.appendChild(background)
 
